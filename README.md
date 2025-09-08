@@ -1,7 +1,7 @@
 # The Unsaid
 
 <p align="center">
-  <img src="hhttps://cdn.discordapp.com/attachments/838638355528024064/1414672839247663297/og-image.png?ex=68c06c40&is=68bf1ac0&hm=9e1723d3e85ec4c22893e6ad86321e7a6d5fc8c7f2ca980da97909d5986d365e" alt="The Unsaid logo" width="480" />
+  <img src="public/og-image.png" alt="The Unsaid logo" width="480" />
 </p>
 
 <p align="center">
