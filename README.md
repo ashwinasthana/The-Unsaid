@@ -15,7 +15,7 @@
 
 > A collection of unsaid text messages to first loves, family members, friends, and others. The loudest words are the ones we never speak.
 
-[Live Demo](https://the-unsaid.vercel.app) · [Admin Panel](https://the-unsaid.vercel.app/admin)
+[Visit](https://the-unsaid.vercel.app)
 
 ---
 
