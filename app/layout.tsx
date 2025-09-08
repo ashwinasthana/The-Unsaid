@@ -5,6 +5,14 @@ import { Analytics } from "@vercel/analytics/next"
 import { Suspense } from "react"
 import "./globals.css"
 
+// Backup font import
+if (typeof document !== 'undefined') {
+  const link = document.createElement('link')
+  link.href = 'https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap'
+  link.rel = 'stylesheet'
+  document.head.appendChild(link)
+}
+
 const openSans = Open_Sans({
   subsets: ["latin"],
   display: "swap",
