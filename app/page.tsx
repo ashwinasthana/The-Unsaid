@@ -312,7 +312,7 @@ export default function UnsentProject() {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-black overflow-hidden">
         <h1 className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold text-white mb-8 tracking-tight intro-title animate-fade-in-up">
-          UNSAID
+          THE UNSAID
         </h1>
         <p className="text-lg sm:text-xl md:text-2xl font-light text-white/80 text-center max-w-3xl px-4 tracking-wide intro-quote animate-fade-in-up-delayed">
           The loudest words are the ones we never speak.
@@ -351,7 +351,7 @@ export default function UnsentProject() {
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-8 sm:mb-12 content-slide animate-fade-in-up">
               <h1 className="text-4xl sm:text-5xl md:text-6xl font-light text-foreground tracking-tight mb-6">
-                UNSAID
+                THE UNSAID
               </h1>
               <p className="text-base sm:text-lg text-muted-foreground font-light tracking-wide max-w-2xl mx-auto px-4 mb-8 leading-relaxed">
                 A collection of unsent text messages to first loves, family members, friends, and others. Search for a

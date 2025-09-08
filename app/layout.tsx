@@ -12,7 +12,7 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: "Unsent Project",
+  title: "The Unsaid",
   description: "A space for thoughts that were never meant to be sent",
   generator: "v0.app",
 }
