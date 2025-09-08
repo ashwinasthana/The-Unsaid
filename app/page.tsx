@@ -354,7 +354,7 @@ export default function UnsentProject() {
                 THE UNSAID
               </h1>
               <p className="text-base sm:text-lg text-muted-foreground font-light tracking-wide max-w-2xl mx-auto px-4 mb-8 leading-relaxed">
-                A collection of unsent text messages to first loves, family members, friends, and others. Search for a
+                A collection of unsaid text messages to first loves, family members, friends, and others. Search for a
                 name to read messages written to people with that name.
               </p>
               {error && (
@@ -366,7 +366,7 @@ export default function UnsentProject() {
                 onClick={() => setShowSubmitForm(true)}
                 className="bg-foreground text-background hover:bg-foreground/90 hover:scale-105 px-6 sm:px-8 py-3 rounded-xl text-base font-medium tracking-wide transition-all duration-300 cursor-pointer"
               >
-                Submit your unsent
+                Submit your unsaid
               </Button>
             </div>
 
@@ -495,8 +495,8 @@ export default function UnsentProject() {
             <Card className="glass-card p-6 sm:p-8 max-w-lg w-full shadow-2xl bg-black/90 border border-white/20 animate-scale-in">
               <div className="space-y-6">
                 <div className="text-center animate-fade-in-up">
-                  <h2 className="text-xl sm:text-2xl font-light text-white mb-2">Submit an Unsent Message</h2>
-                  <p className="text-white/70 text-sm">Share something you never sent</p>
+                  <h2 className="text-xl sm:text-2xl font-light text-white mb-2">Submit an Unsaid Message</h2>
+                  <p className="text-white/70 text-sm">Share something you never said</p>
                 </div>
 
                 <form onSubmit={handleSubmit} className="space-y-4">
@@ -589,7 +589,7 @@ export default function UnsentProject() {
               <p className="text-muted-foreground text-lg sm:text-xl font-light tracking-wide leading-relaxed mb-8">
                 Nothing left unsaid for you… yet.
               </p>
-              <p className="text-muted-foreground text-base mb-8">Be the first to leave an unsent message for them.</p>
+              <p className="text-muted-foreground text-base mb-8">Be the first to leave an unsaid message for them.</p>
               <Button
                 onClick={() => setShowSubmitForm(true)}
                 className="bg-foreground text-background hover:bg-foreground/90 hover:scale-105 px-6 sm:px-8 py-3 rounded-xl text-base font-medium tracking-wide transition-all duration-300"
@@ -712,8 +712,8 @@ export default function UnsentProject() {
             <Card className="glass-card p-8 sm:p-10 max-w-lg w-full shadow-2xl bg-black/90 border border-white/20 animate-scale-in">
               <div className="space-y-6">
                 <div className="text-center animate-fade-in-up">
-                  <h2 className="text-xl sm:text-2xl font-light text-white mb-2">Submit an Unsent Message</h2>
-                  <p className="text-white/70 text-sm">Share something you never sent</p>
+                  <h2 className="text-xl sm:text-2xl font-light text-white mb-2">Submit an Unsaid Message</h2>
+                  <p className="text-white/70 text-sm">Share something you never said</p>
                 </div>
 
                 <form onSubmit={handleSubmit} className="space-y-4">
