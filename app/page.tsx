@@ -201,14 +201,21 @@ export default function UnsentProject() {
       const response = await fetch(`/api/messages?name=${encodeURIComponent(sanitizedQuery)}`)
       if (response.ok) {
         const data = await response.json()
-        const results = data.messages.map((msg: DatabaseMessage) => ({
+        const dbResults = data.messages.map((msg: DatabaseMessage) => ({
           id: msg.id,
           content: msg.message_text,
           timestamp: new Date(msg.created_at),
           recipient: msg.recipient_name,
           isAnonymous: true,
         }))
-        setSearchResults(results)
+        
+        // Filter sample messages by search term
+        const sampleResults = getSampleMessages().filter(msg => 
+          msg.recipient.toLowerCase().includes(sanitizedQuery.toLowerCase())
+        )
+        
+        const combinedResults = [...dbResults, ...sampleResults]
+        setSearchResults(combinedResults)
       } else {
         setSearchResults([])
       }
