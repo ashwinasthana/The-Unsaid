@@ -140,6 +140,27 @@ export default function UnsentProject() {
   const [error, setError] = useState<string>("")
   const [isLoading, setIsLoading] = useState(false)
   const textareaRef = useRef<HTMLTextAreaElement>(null)
+  const observerRef = useRef<IntersectionObserver | null>(null)
+
+  useEffect(() => {
+    observerRef.current = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate-fade-in-up')
+          }
+        })
+      },
+      { threshold: 0.1, rootMargin: '50px' }
+    )
+
+    const elements = document.querySelectorAll('.scroll-animate')
+    elements.forEach((el) => observerRef.current?.observe(el))
+
+    return () => {
+      observerRef.current?.disconnect()
+    }
+  }, [currentView])
 
   useEffect(() => {
     const fetchMessages = async () => {
@@ -378,7 +399,7 @@ export default function UnsentProject() {
 
         <div className="flex-1 p-4 sm:p-6 md:p-8">
           <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-8 sm:mb-12 content-slide animate-fade-in-up px-4">
+            <div className="scroll-animate text-center mb-8 sm:mb-12 content-slide opacity-0 translate-y-8 px-4">
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-sans font-light text-foreground tracking-tight mb-4 sm:mb-6 animate-pulse">
                 THE UNSAID
               </h1>
@@ -409,7 +430,7 @@ export default function UnsentProject() {
                   <Card
                     key={message.id}
                     onClick={() => handleMessageClick(message)}
-                    className="glass-card p-4 sm:p-6 shadow-lg note-enter border-l-4 border-l-foreground/20 hover:shadow-xl transition-all duration-500 cursor-pointer hover:scale-[1.02] hover:-translate-y-1 animate-fade-in-up animate-message-click"
+                    className="scroll-animate glass-card p-4 sm:p-6 shadow-lg note-enter border-l-4 border-l-foreground/20 hover:shadow-xl transition-all duration-500 cursor-pointer hover:scale-[1.02] hover:-translate-y-1 opacity-0 translate-y-8"
                     style={{ animationDelay: `${index * 100}ms` }}
                   >
                     <div className="space-y-4">
@@ -632,7 +653,7 @@ export default function UnsentProject() {
                 <Card
                   key={message.id}
                   onClick={() => handleMessageClick(message)}
-                  className="glass-card p-6 sm:p-8 shadow-lg note-enter border-l-4 border-l-foreground/20 cursor-pointer hover:shadow-xl hover:scale-[1.02] hover:-translate-y-1 transition-all duration-500 animate-fade-in-up"
+                  className="scroll-animate glass-card p-6 sm:p-8 shadow-lg note-enter border-l-4 border-l-foreground/20 cursor-pointer hover:shadow-xl hover:scale-[1.02] hover:-translate-y-1 transition-all duration-500 opacity-0 translate-y-8"
                   style={{ animationDelay: `${index * 150}ms` }}
                 >
                   <div className="space-y-4">
