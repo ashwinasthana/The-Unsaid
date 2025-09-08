@@ -311,10 +311,10 @@ export default function UnsentProject() {
   if (showIntro) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-black overflow-hidden">
-        <h1 className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold text-white mb-8 tracking-tight intro-title animate-fade-in-up">
+        <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold text-white mb-6 sm:mb-8 tracking-tight intro-title animate-fade-in-up px-4">
           THE UNSAID
         </h1>
-        <p className="text-lg sm:text-xl md:text-2xl font-light text-white/80 text-center max-w-3xl px-4 tracking-wide intro-quote animate-fade-in-up-delayed">
+        <p className="text-base sm:text-lg md:text-xl lg:text-2xl font-light text-white/80 text-center max-w-3xl px-6 sm:px-4 tracking-wide intro-quote animate-fade-in-up-delayed leading-relaxed">
           The loudest words are the ones we never speak.
         </p>
       </div>
@@ -324,22 +324,22 @@ export default function UnsentProject() {
   if (showContent && currentView === "search") {
     return (
       <div className="min-h-screen flex flex-col bg-background animate-fade-in">
-        <header className="flex justify-between items-center p-4 sm:p-6 md:p-8 border-b border-border/20">
-          <div></div>
-          <div className="flex items-center gap-4">
-            <form onSubmit={handleSearch} className="flex items-center gap-3">
+        <header className="flex flex-col sm:flex-row justify-between items-center p-4 sm:p-6 md:p-8 border-b border-border/20 gap-4">
+          <div className="hidden sm:block"></div>
+          <div className="w-full sm:w-auto flex justify-center">
+            <form onSubmit={handleSearch} className="flex items-center gap-2 sm:gap-3 w-full max-w-md sm:max-w-none">
               <Input
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search your name..."
-                className="w-48 sm:w-56 md:w-64 border-0 bg-muted/20 backdrop-blur-sm text-foreground placeholder:text-muted-foreground/70 focus:ring-2 focus:ring-foreground/20 transition-all duration-300 rounded-xl animate-slide-in-right"
+                className="flex-1 sm:w-48 md:w-56 lg:w-64 border-0 bg-muted/20 backdrop-blur-sm text-foreground placeholder:text-muted-foreground/70 focus:ring-2 focus:ring-foreground/20 transition-all duration-300 rounded-xl animate-slide-in-right"
                 maxLength={50}
                 disabled={isLoading}
               />
               <Button
                 type="submit"
                 disabled={!searchQuery.trim() || isLoading}
-                className="bg-foreground text-background hover:bg-foreground/90 hover:scale-105 px-4 sm:px-6 py-2 rounded-xl text-sm font-medium tracking-wide transition-all duration-300 disabled:opacity-50 animate-slide-in-right-delayed cursor-pointer"
+                className="bg-foreground text-background hover:bg-foreground/90 hover:scale-105 px-3 sm:px-4 md:px-6 py-2 rounded-xl text-sm font-medium tracking-wide transition-all duration-300 disabled:opacity-50 animate-slide-in-right-delayed cursor-pointer whitespace-nowrap"
               >
                 {isLoading ? "Searching..." : "Search"}
               </Button>
@@ -349,11 +349,11 @@ export default function UnsentProject() {
 
         <div className="flex-1 p-4 sm:p-6 md:p-8">
           <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-8 sm:mb-12 content-slide animate-fade-in-up">
-              <h1 className="text-4xl sm:text-5xl md:text-6xl font-light text-foreground tracking-tight mb-6">
+            <div className="text-center mb-8 sm:mb-12 content-slide animate-fade-in-up px-4">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-foreground tracking-tight mb-4 sm:mb-6">
                 THE UNSAID
               </h1>
-              <p className="text-base sm:text-lg text-muted-foreground font-light tracking-wide max-w-2xl mx-auto px-4 mb-8 leading-relaxed">
+              <p className="text-sm sm:text-base md:text-lg text-muted-foreground font-light tracking-wide max-w-2xl mx-auto mb-6 sm:mb-8 leading-relaxed">
                 A collection of unsaid text messages to first loves, family members, friends, and others. Search for a
                 name to read messages written to people with that name.
               </p>
@@ -375,7 +375,7 @@ export default function UnsentProject() {
                 <p className="text-muted-foreground">Loading messages...</p>
               </div>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 px-4 sm:px-0">
                 {messages.slice(0, 6).map((message, index) => (
                   <Card
                     key={message.id}
@@ -455,8 +455,8 @@ export default function UnsentProject() {
         </footer>
 
         {selectedMessage && (
-          <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-50 animate-fade-in">
-            <Card className="glass-card p-6 sm:p-8 max-w-2xl w-full shadow-2xl max-h-[80vh] overflow-y-auto bg-black/90 border border-white/20 animate-scale-in">
+          <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 z-50 animate-fade-in">
+            <Card className="glass-card p-4 sm:p-6 md:p-8 max-w-2xl w-full mx-3 sm:mx-4 shadow-2xl max-h-[85vh] sm:max-h-[80vh] overflow-y-auto bg-black/90 border border-white/20 animate-scale-in">
               <div className="space-y-6">
                 <div className="flex justify-between items-start">
                   <div className="animate-fade-in-up">
@@ -491,8 +491,8 @@ export default function UnsentProject() {
         )}
 
         {showSubmitForm && (
-          <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-50 animate-fade-in">
-            <Card className="glass-card p-6 sm:p-8 max-w-lg w-full shadow-2xl bg-black/90 border border-white/20 animate-scale-in">
+          <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 z-50 animate-fade-in">
+            <Card className="glass-card p-4 sm:p-6 md:p-8 max-w-lg w-full mx-3 sm:mx-4 shadow-2xl bg-black/90 border border-white/20 animate-scale-in">
               <div className="space-y-6">
                 <div className="text-center animate-fade-in-up">
                   <h2 className="text-xl sm:text-2xl font-light text-white mb-2">Submit an Unsaid Message</h2>
