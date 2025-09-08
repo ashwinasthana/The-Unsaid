@@ -180,7 +180,7 @@ export default function UnsentProject() {
     const hideIntroTimer = setTimeout(() => {
       setShowIntro(false)
       setShowContent(true)
-    }, 4000)
+    }, 3000)
 
     return () => clearTimeout(hideIntroTimer)
   }, [])
@@ -332,6 +332,13 @@ export default function UnsentProject() {
         <p className="text-base sm:text-lg md:text-xl lg:text-2xl font-light text-white/80 text-center max-w-3xl px-6 sm:px-4 tracking-wide intro-quote animate-fade-in-up-delayed leading-relaxed">
           The loudest words are the ones we never speak.
         </p>
+        <div className="flex justify-center items-center mt-8 animate-fade-in-up-delayed">
+          <div className="flex space-x-1">
+            <div className="w-2 h-2 bg-white/60 rounded-full animate-pulse" style={{animationDelay: '0s'}}></div>
+            <div className="w-2 h-2 bg-white/60 rounded-full animate-pulse" style={{animationDelay: '0.2s'}}></div>
+            <div className="w-2 h-2 bg-white/60 rounded-full animate-pulse" style={{animationDelay: '0.4s'}}></div>
+          </div>
+        </div>
       </div>
     )
   }
