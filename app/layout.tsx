@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   description: "A space for thoughts that were never meant to be sent",
   generator: "v0.app",
   icons: {
-    icon: "/favicon.ico",
+    icon: "/favicon.png",
   },
   openGraph: {
     title: "The Unsaid",
