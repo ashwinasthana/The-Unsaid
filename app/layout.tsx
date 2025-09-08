@@ -22,36 +22,14 @@ const openSans = Open_Sans({
 })
 
 export const metadata: Metadata = {
-  title: "The Unsaid - Anonymous Messages to Loved Ones",
-  description: "A collection of unsaid text messages to first loves, family members, friends, and others. The loudest words are the ones we never speak.",
-  keywords: ["anonymous messages", "unsaid words", "emotional expression", "love letters", "unspoken thoughts"],
-  authors: [{ name: "Ashwin Asthana" }],
-  creator: "Ashwin Asthana",
+  title: "The Unsaid",
+  description: "A space for thoughts that were never meant to be sent",
   icons: {
     icon: "/favicon.png",
   },
   openGraph: {
-    type: "website",
-    locale: "en_US",
-    url: "https://the-unsaid.vercel.app",
-    siteName: "The Unsaid",
-    title: "The Unsaid - Share Your Unspoken Words Anonymously",
-    description: "A beautiful platform where people anonymously share messages they never sent to loved ones. Express your unspoken thoughts in a safe space.",
-    images: [
-      {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "The Unsaid - Anonymous Messages Platform",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    site: "@theUnsaidApp",
-    creator: "@ashwinasthana",
-    title: "The Unsaid - Share Your Unspoken Words",
-    description: "Anonymous messages to first loves, family, and friends. The loudest words are the ones we never speak.",
+    title: "The Unsaid",
+    description: "A space for thoughts that were never meant to be sent",
     images: ["/og-image.png"],
   },
 }
