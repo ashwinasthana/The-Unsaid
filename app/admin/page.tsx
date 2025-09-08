@@ -97,18 +97,18 @@ export default function AdminPanel() {
 
   if (showAdminIntro) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-black overflow-hidden">
-        <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-sans font-bold text-white mb-6 sm:mb-8 tracking-tight intro-title animate-fade-in-up px-4">
+      <div className="min-h-screen flex flex-col items-center justify-center bg-black overflow-hidden px-4 sm:px-6">
+        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-sans font-bold text-white mb-4 sm:mb-6 md:mb-8 tracking-tight intro-title animate-fade-in-up text-center">
           ASHWIN ASTHANA
         </h1>
-        <p className="text-base sm:text-lg md:text-xl lg:text-2xl font-sans font-light text-white/80 text-center max-w-3xl px-6 sm:px-4 tracking-wide intro-quote animate-fade-in-up-delayed leading-relaxed">
+        <p className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-sans font-light text-white/80 text-center max-w-xs sm:max-w-md md:max-w-lg lg:max-w-2xl xl:max-w-3xl px-2 sm:px-4 tracking-wide intro-quote animate-fade-in-up-delayed leading-relaxed">
           Welcome to the admin panel.
         </p>
-        <div className="flex justify-center items-center mt-8 animate-fade-in-up-delayed">
+        <div className="flex justify-center items-center mt-6 sm:mt-8 animate-fade-in-up-delayed">
           <div className="flex space-x-1">
-            <div className="w-2 h-2 bg-white/60 rounded-full animate-pulse" style={{animationDelay: '0s'}}></div>
-            <div className="w-2 h-2 bg-white/60 rounded-full animate-pulse" style={{animationDelay: '0.2s'}}></div>
-            <div className="w-2 h-2 bg-white/60 rounded-full animate-pulse" style={{animationDelay: '0.4s'}}></div>
+            <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-white/60 rounded-full animate-pulse" style={{animationDelay: '0s'}}></div>
+            <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-white/60 rounded-full animate-pulse" style={{animationDelay: '0.2s'}}></div>
+            <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-white/60 rounded-full animate-pulse" style={{animationDelay: '0.4s'}}></div>
           </div>
         </div>
       </div>
@@ -117,14 +117,14 @@ export default function AdminPanel() {
 
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-background animate-fade-in">
-        <Card className="p-8 max-w-md w-full mx-4 shadow-2xl border border-border/20 animate-scale-in">
+      <div className="min-h-screen flex items-center justify-center bg-background animate-fade-in p-4">
+        <Card className="p-6 sm:p-8 max-w-sm sm:max-w-md w-full mx-2 sm:mx-4 shadow-2xl border border-border/20 animate-scale-in">
           <div className="text-center mb-6">
-            <div className="w-16 h-16 bg-foreground rounded-full flex items-center justify-center mx-auto mb-4 animate-pulse">
-              <span className="text-2xl text-background">🔐</span>
+            <div className="w-12 h-12 sm:w-16 sm:h-16 bg-foreground rounded-full flex items-center justify-center mx-auto mb-4 animate-pulse">
+              <span className="text-xl sm:text-2xl text-background">🔐</span>
             </div>
-            <h1 className="text-2xl font-bold text-foreground">Admin Access</h1>
-            <p className="text-sm text-muted-foreground mt-2">Secure portal for Ashwin Asthana</p>
+            <h1 className="text-xl sm:text-2xl font-bold text-foreground">Admin Access</h1>
+            <p className="text-xs sm:text-sm text-muted-foreground mt-2">Secure portal for Ashwin Asthana</p>
           </div>
           <form onSubmit={handleLogin} className="space-y-4">
             {error && (
@@ -167,31 +167,33 @@ export default function AdminPanel() {
   return (
     <div className="min-h-screen bg-background p-4 animate-fade-in">
       <div className="max-w-6xl mx-auto">
-        <div className="bg-card border border-border/20 rounded-xl p-6 mb-8 shadow-lg animate-slide-in-down">
+        <div className="bg-card border border-border/20 rounded-xl p-4 sm:p-6 mb-6 sm:mb-8 shadow-lg animate-slide-in-down">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-            <div>
-              <h1 className="text-3xl font-bold text-foreground flex items-center gap-3">
-                <span className="w-10 h-10 bg-foreground text-background rounded-full flex items-center justify-center text-lg">👑</span>
-                Admin Dashboard
+            <div className="w-full sm:w-auto">
+              <h1 className="text-2xl sm:text-3xl font-bold text-foreground flex items-center gap-2 sm:gap-3">
+                <span className="w-8 h-8 sm:w-10 sm:h-10 bg-foreground text-background rounded-full flex items-center justify-center text-base sm:text-lg">👑</span>
+                <span className="truncate">Admin Dashboard</span>
               </h1>
-              <div className="mt-2 text-sm text-muted-foreground">
+              <div className="mt-2 text-xs sm:text-sm text-muted-foreground">
                 <p>Welcome back, <span className="font-semibold text-foreground">Ashwin Asthana</span></p>
                 {loginTime && (
-                  <p>Logged in at {loginTime.toLocaleTimeString()}</p>
+                  <p className="truncate">Logged in at {loginTime.toLocaleTimeString()}</p>
                 )}
               </div>
             </div>
-            <div className="flex items-center gap-3">
-              <div className="px-3 py-1 bg-green-500/10 border border-green-500/20 rounded-full text-green-400 text-xs font-medium">
+            <div className="flex items-center gap-2 sm:gap-3 w-full sm:w-auto justify-end">
+              <div className="px-2 sm:px-3 py-1 bg-green-500/10 border border-green-500/20 rounded-full text-green-400 text-xs font-medium">
                 ● Online
               </div>
               <Button 
                 onClick={() => {
                   setIsAuthenticated(false)
                   setLoginTime(null)
+                  setShowAdminContent(false)
                 }} 
                 variant="outline"
-                className="transition-all duration-300 hover:scale-105"
+                size="sm"
+                className="transition-all duration-300 hover:scale-105 text-xs sm:text-sm"
               >
                 Logout
               </Button>
@@ -205,26 +207,26 @@ export default function AdminPanel() {
           </div>
         )}
 
-        <div className="grid gap-4">
+        <div className="grid gap-3 sm:gap-4">
           {messages.map((message, index) => (
             <Card 
               key={message.id} 
-              className={`p-6 shadow-lg border border-border/20 transition-all duration-500 hover:shadow-xl hover:scale-[1.02] animate-fade-in-up ${
+              className={`p-4 sm:p-6 shadow-lg border border-border/20 transition-all duration-500 hover:shadow-xl hover:scale-[1.01] sm:hover:scale-[1.02] animate-fade-in-up ${
                 deletingId === message.id ? 'opacity-50 scale-95 pointer-events-none' : ''
               }`}
               style={{ animationDelay: `${index * 100}ms` }}
             >
-              <div className="flex justify-between items-start mb-4">
-                <div className="flex-1">
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className="px-2 py-1 bg-foreground/10 rounded-full text-xs font-medium">
+              <div className="flex flex-col sm:flex-row justify-between items-start gap-3 sm:gap-4 mb-4">
+                <div className="flex-1 w-full sm:w-auto">
+                  <div className="flex flex-wrap items-center gap-2 mb-2">
+                    <span className="px-2 py-1 bg-foreground/10 rounded-full text-xs font-medium truncate max-w-[200px]">
                       To: {message.recipient_name}
                     </span>
-                    <span className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></span>
+                    <span className="w-2 h-2 bg-blue-400 rounded-full animate-pulse flex-shrink-0"></span>
                   </div>
-                  <p className="text-sm text-muted-foreground flex items-center gap-2">
+                  <p className="text-xs sm:text-sm text-muted-foreground flex items-center gap-2">
                     <span>📅</span>
-                    {new Date(message.created_at).toLocaleString()}
+                    <span className="truncate">{new Date(message.created_at).toLocaleString()}</span>
                   </p>
                 </div>
                 <Button
@@ -232,34 +234,34 @@ export default function AdminPanel() {
                   variant="destructive"
                   size="sm"
                   disabled={deletingId === message.id}
-                  className="transition-all duration-300 hover:scale-110 disabled:opacity-50"
+                  className="transition-all duration-300 hover:scale-105 sm:hover:scale-110 disabled:opacity-50 text-xs sm:text-sm w-full sm:w-auto"
                 >
                   {deletingId === message.id ? (
-                    <div className="flex items-center gap-1">
+                    <div className="flex items-center gap-1 justify-center">
                       <div className="w-3 h-3 border border-white/30 border-t-white rounded-full animate-spin"></div>
-                      Deleting
+                      <span className="hidden sm:inline">Deleting</span>
                     </div>
                   ) : (
-                    <span className="flex items-center gap-1">
-                      🗑️ Delete
+                    <span className="flex items-center gap-1 justify-center">
+                      🗑️ <span className="hidden sm:inline">Delete</span>
                     </span>
                   )}
                 </Button>
               </div>
-              <div className="bg-muted/20 rounded-lg p-4 border-l-4 border-l-foreground/30">
-                <p className="text-sm leading-relaxed text-foreground">{message.message_text}</p>
+              <div className="bg-muted/20 rounded-lg p-3 sm:p-4 border-l-4 border-l-foreground/30">
+                <p className="text-sm leading-relaxed text-foreground break-words">{message.message_text}</p>
               </div>
             </Card>
           ))}
         </div>
 
         {messages.length === 0 && (
-          <div className="text-center py-20 animate-fade-in-up">
-            <div className="w-24 h-24 bg-muted/20 rounded-full flex items-center justify-center mx-auto mb-4">
-              <span className="text-4xl">📬</span>
+          <div className="text-center py-12 sm:py-20 animate-fade-in-up px-4">
+            <div className="w-16 h-16 sm:w-24 sm:h-24 bg-muted/20 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span className="text-2xl sm:text-4xl">📬</span>
             </div>
-            <h3 className="text-xl font-semibold text-foreground mb-2">No Messages Yet</h3>
-            <p className="text-muted-foreground">All messages will appear here for management</p>
+            <h3 className="text-lg sm:text-xl font-semibold text-foreground mb-2">No Messages Yet</h3>
+            <p className="text-sm sm:text-base text-muted-foreground">All messages will appear here for management</p>
           </div>
         )}
       </div>
