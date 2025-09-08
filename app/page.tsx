@@ -326,7 +326,7 @@ export default function UnsentProject() {
   if (showIntro) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-black overflow-hidden">
-        <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold text-white mb-6 sm:mb-8 tracking-tight intro-title animate-fade-in-up px-4">
+        <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-sans font-bold text-white mb-6 sm:mb-8 tracking-tight intro-title animate-fade-in-up px-4">
           THE UNSAID
         </h1>
         <p className="text-base sm:text-lg md:text-xl lg:text-2xl font-light text-white/80 text-center max-w-3xl px-6 sm:px-4 tracking-wide intro-quote animate-fade-in-up-delayed leading-relaxed">
@@ -372,7 +372,7 @@ export default function UnsentProject() {
         <div className="flex-1 p-4 sm:p-6 md:p-8">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-8 sm:mb-12 content-slide animate-fade-in-up px-4">
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-foreground tracking-tight mb-4 sm:mb-6 animate-pulse">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-sans font-light text-foreground tracking-tight mb-4 sm:mb-6 animate-pulse">
                 THE UNSAID
               </h1>
               <p className="text-sm sm:text-base md:text-lg text-muted-foreground font-light tracking-wide max-w-2xl mx-auto mb-6 sm:mb-8 leading-relaxed">

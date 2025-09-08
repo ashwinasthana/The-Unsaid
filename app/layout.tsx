@@ -34,7 +34,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`font-sans ${openSans.variable} antialiased`}>
+      <body className={`${openSans.variable} font-sans antialiased`}>
         <Suspense fallback={null}>{children}</Suspense>
         <Analytics />
       </body>
