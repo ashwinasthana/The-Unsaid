@@ -39,17 +39,23 @@ export async function DELETE(
     }
 
     const { id } = await params
+    console.log("Attempting to delete message ID:", id)
+    
     const supabase = await createClient()
-    const { error } = await supabase
+    const { error, data } = await supabase
       .from("messages")
       .delete()
       .eq("id", id)
+      .select()
+
+    console.log("Delete result:", { error, data })
 
     if (error) {
-      return NextResponse.json({ error: "Failed to delete message" }, { status: 500 })
+      console.error("Supabase delete error:", error)
+      return NextResponse.json({ error: `Failed to delete message: ${error.message}` }, { status: 500 })
     }
 
-    return NextResponse.json({ success: true })
+    return NextResponse.json({ success: true, deleted: data })
   } catch (error) {
     return NextResponse.json({ error: "Internal server error" }, { status: 500 })
   }

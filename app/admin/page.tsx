@@ -60,16 +60,23 @@ export default function AdminPanel() {
     if (!confirm("Are you sure you want to delete this message?")) return
 
     try {
+      console.log("Deleting message with ID:", id)
       const response = await fetch(`/api/admin/messages/${id}`, {
         method: "DELETE",
       })
 
+      const result = await response.json()
+      console.log("Delete response:", result)
+
       if (response.ok) {
         setMessages(messages.filter(msg => msg.id !== id))
+        console.log("Message deleted successfully")
       } else {
-        setError("Failed to delete message")
+        console.error("Delete failed:", result)
+        setError(`Failed to delete message: ${result.error}`)
       }
     } catch (error) {
+      console.error("Delete error:", error)
       setError("Failed to delete message")
     }
   }
