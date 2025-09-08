@@ -98,10 +98,10 @@ export default function AdminPanel() {
   if (showAdminIntro) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-black overflow-hidden px-4 sm:px-6">
-        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-sans font-bold text-white mb-4 sm:mb-6 md:mb-8 tracking-tight intro-title animate-fade-in-up text-center">
+        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white mb-4 sm:mb-6 md:mb-8 tracking-tight intro-title animate-fade-in-up text-center" style={{fontFamily: 'var(--font-montserrat), system-ui, sans-serif'}}>
           ASHWIN ASTHANA
         </h1>
-        <p className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-sans font-light text-white/80 text-center max-w-xs sm:max-w-md md:max-w-lg lg:max-w-2xl xl:max-w-3xl px-2 sm:px-4 tracking-wide intro-quote animate-fade-in-up-delayed leading-relaxed">
+        <p className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-light text-white/80 text-center max-w-xs sm:max-w-md md:max-w-lg lg:max-w-2xl xl:max-w-3xl px-2 sm:px-4 tracking-wide intro-quote animate-fade-in-up-delayed leading-relaxed" style={{fontFamily: 'var(--font-montserrat), system-ui, sans-serif'}}>
           Welcome to the admin panel.
         </p>
         <div className="flex justify-center items-center mt-6 sm:mt-8 animate-fade-in-up-delayed">
@@ -123,7 +123,7 @@ export default function AdminPanel() {
             <div className="w-12 h-12 sm:w-16 sm:h-16 bg-foreground rounded-full flex items-center justify-center mx-auto mb-4 animate-pulse">
               <span className="text-xl sm:text-2xl text-background">🔐</span>
             </div>
-            <h1 className="text-xl sm:text-2xl font-bold text-foreground">Admin Access</h1>
+            <h1 className="text-xl sm:text-2xl font-bold text-foreground" style={{fontFamily: 'var(--font-montserrat), system-ui, sans-serif'}}>Admin Access</h1>
             <p className="text-xs sm:text-sm text-muted-foreground mt-2">Secure portal for Ashwin Asthana</p>
           </div>
           <form onSubmit={handleLogin} className="space-y-4">
@@ -170,7 +170,7 @@ export default function AdminPanel() {
         <div className="bg-card border border-border/20 rounded-xl p-4 sm:p-6 mb-6 sm:mb-8 shadow-lg animate-slide-in-down">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div className="w-full sm:w-auto">
-              <h1 className="text-2xl sm:text-3xl font-bold text-foreground flex items-center gap-2 sm:gap-3">
+              <h1 className="text-2xl sm:text-3xl font-bold text-foreground flex items-center gap-2 sm:gap-3" style={{fontFamily: 'var(--font-montserrat), system-ui, sans-serif'}}>
                 <span className="w-8 h-8 sm:w-10 sm:h-10 bg-foreground text-background rounded-full flex items-center justify-center text-base sm:text-lg">👑</span>
                 <span className="truncate">Admin Dashboard</span>
               </h1>
@@ -260,7 +260,7 @@ export default function AdminPanel() {
             <div className="w-16 h-16 sm:w-24 sm:h-24 bg-muted/20 rounded-full flex items-center justify-center mx-auto mb-4">
               <span className="text-2xl sm:text-4xl">📬</span>
             </div>
-            <h3 className="text-lg sm:text-xl font-semibold text-foreground mb-2">No Messages Yet</h3>
+            <h3 className="text-lg sm:text-xl font-semibold text-foreground mb-2" style={{fontFamily: 'var(--font-montserrat), system-ui, sans-serif'}}>No Messages Yet</h3>
             <p className="text-sm sm:text-base text-muted-foreground">All messages will appear here for management</p>
           </div>
         )}

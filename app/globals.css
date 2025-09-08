@@ -119,9 +119,11 @@
 @layer base {
   * {
     @apply border-border outline-ring/50;
+    font-family: var(--font-montserrat), system-ui, sans-serif;
   }
   body {
     @apply bg-background text-foreground;
+    font-family: var(--font-montserrat), system-ui, sans-serif;
   }
 }
 
@@ -143,6 +145,7 @@
     animation: introFade 4s ease-out forwards;
     opacity: 0;
     transform: translateY(20px);
+    font-family: var(--font-montserrat), system-ui, sans-serif !important;
   }
 
   .intro-quote {
