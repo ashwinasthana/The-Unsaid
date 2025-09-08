@@ -135,6 +135,8 @@ export default function UnsentProject() {
   const [searchResults, setSearchResults] = useState<UnsentMessage[]>([])
   const [showSubmitForm, setShowSubmitForm] = useState(false)
   const [selectedMessage, setSelectedMessage] = useState<UnsentMessage | null>(null)
+  const [isClosingMessage, setIsClosingMessage] = useState(false)
+  const [isClosingForm, setIsClosingForm] = useState(false)
   const [error, setError] = useState<string>("")
   const [isLoading, setIsLoading] = useState(false)
   const textareaRef = useRef<HTMLTextAreaElement>(null)
@@ -305,7 +307,20 @@ export default function UnsentProject() {
   }
 
   const closeMessageDetail = () => {
-    setSelectedMessage(null)
+    setIsClosingMessage(true)
+    setTimeout(() => {
+      setSelectedMessage(null)
+      setIsClosingMessage(false)
+    }, 300)
+  }
+
+  const closeSubmitForm = () => {
+    setIsClosingForm(true)
+    setTimeout(() => {
+      setShowSubmitForm(false)
+      setIsClosingForm(false)
+      setError("")
+    }, 300)
   }
 
   if (showIntro) {
@@ -455,8 +470,8 @@ export default function UnsentProject() {
         </footer>
 
         {selectedMessage && (
-          <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 z-50 animate-fade-in">
-            <Card className="glass-card p-4 sm:p-6 md:p-8 max-w-2xl w-full mx-3 sm:mx-4 shadow-2xl max-h-[85vh] sm:max-h-[80vh] overflow-y-auto bg-black/90 border border-white/20 animate-scale-in">
+          <div className={`fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 z-50 transition-opacity duration-300 ${isClosingMessage ? 'opacity-0' : 'opacity-100 animate-fade-in'}`}>
+            <Card className={`glass-card p-4 sm:p-6 md:p-8 max-w-2xl w-full mx-3 sm:mx-4 shadow-2xl max-h-[85vh] sm:max-h-[80vh] overflow-y-auto bg-black/90 border border-white/20 transition-all duration-300 ${isClosingMessage ? 'scale-95 opacity-0' : 'scale-100 opacity-100 animate-scale-in'}`}>
               <div className="space-y-6">
                 <div className="flex justify-between items-start">
                   <div className="animate-fade-in-up">
@@ -491,8 +506,8 @@ export default function UnsentProject() {
         )}
 
         {showSubmitForm && (
-          <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 z-50 animate-fade-in">
-            <Card className="glass-card p-4 sm:p-6 md:p-8 max-w-lg w-full mx-3 sm:mx-4 shadow-2xl bg-black/90 border border-white/20 animate-scale-in">
+          <div className={`fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 z-50 transition-opacity duration-300 ${isClosingForm ? 'opacity-0' : 'opacity-100 animate-fade-in'}`}>
+            <Card className={`glass-card p-4 sm:p-6 md:p-8 max-w-lg w-full mx-3 sm:mx-4 shadow-2xl bg-black/90 border border-white/20 transition-all duration-300 ${isClosingForm ? 'scale-95 opacity-0' : 'scale-100 opacity-100 animate-scale-in'}`}>
               <div className="space-y-6">
                 <div className="text-center animate-fade-in-up">
                   <h2 className="text-xl sm:text-2xl font-light text-white mb-2">Submit an Unsaid Message</h2>
@@ -673,7 +688,7 @@ export default function UnsentProject() {
 
         {selectedMessage && (
           <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-50 animate-fade-in">
-            <Card className="glass-card p-8 sm:p-10 max-w-2xl w-full shadow-2xl max-h-[80vh] overflow-y-auto bg-black/90 border border-white/20 animate-scale-in">
+            <Card className={`glass-card p-8 sm:p-10 max-w-2xl w-full shadow-2xl max-h-[80vh] overflow-y-auto bg-black/90 border border-white/20 transition-all duration-300 ${isClosingMessage ? 'scale-95 opacity-0' : 'scale-100 opacity-100 animate-scale-in'}`}>
               <div className="space-y-6">
                 <div className="flex justify-between items-start">
                   <div className="animate-fade-in-up">
@@ -709,7 +724,7 @@ export default function UnsentProject() {
 
         {showSubmitForm && (
           <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-50 animate-fade-in">
-            <Card className="glass-card p-8 sm:p-10 max-w-lg w-full shadow-2xl bg-black/90 border border-white/20 animate-scale-in">
+            <Card className={`glass-card p-8 sm:p-10 max-w-lg w-full shadow-2xl bg-black/90 border border-white/20 transition-all duration-300 ${isClosingForm ? 'scale-95 opacity-0' : 'scale-100 opacity-100 animate-scale-in'}`}>
               <div className="space-y-6">
                 <div className="text-center animate-fade-in-up">
                   <h2 className="text-xl sm:text-2xl font-light text-white mb-2">Submit an Unsaid Message</h2>
