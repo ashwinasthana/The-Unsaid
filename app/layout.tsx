@@ -16,7 +16,6 @@ const openSans = Open_Sans({
 export const metadata: Metadata = {
   title: "The Unsaid",
   description: "A space for thoughts that were never meant to be sent",
-  generator: "v0.app",
   icons: {
     icon: "/favicon.png",
   },
