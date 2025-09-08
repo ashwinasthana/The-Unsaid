@@ -15,7 +15,7 @@
 
 > A collection of unsaid text messages to first loves, family members, friends, and others. The loudest words are the ones we never speak.
 
-[Visit](https://the-unsaid.vercel.app)
+[Visit](https://unsaid-eight.vercel.app/)
 
 ---
 
@@ -58,22 +58,22 @@ Try searching for common names like "Sarah", "John", or "Mom" to see existing me
 
 Landing page with search  
 <p align="center">
-  <img src="https://your-screenshot-url-here.com/landing.png" alt="Landing page" width="720" />
+  <img src="public/home.png" alt="Landing page" width="720" />
 </p>
 
 Message collection view  
 <p align="center">
-  <img src="https://your-screenshot-url-here.com/messages.png" alt="Messages view" width="720" />
+  <img src="public/messages.png" alt="Messages view" width="720" />
 </p>
 
 Submit message form  
 <p align="center">
-  <img src="https://your-screenshot-url-here.com/submit.png" alt="Submit form" width="720" />
+  <img src="public/submit.png" alt="Submit form" width="720" />
 </p>
 
 Admin panel  
 <p align="center">
-  <img src="https://your-screenshot-url-here.com/admin.png" alt="Admin panel" width="720" />
+  <img src="public/admin.png" alt="Admin panel" width="720" />
 </p>
 
 ---
