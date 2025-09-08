@@ -20,6 +20,8 @@ export default function AdminPanel() {
   const [error, setError] = useState("")
   const [loginTime, setLoginTime] = useState<Date | null>(null)
   const [deletingId, setDeletingId] = useState<string | null>(null)
+  const [showAdminIntro, setShowAdminIntro] = useState(false)
+  const [showAdminContent, setShowAdminContent] = useState(false)
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -36,7 +38,14 @@ export default function AdminPanel() {
       if (response.ok) {
         setIsAuthenticated(true)
         setLoginTime(new Date())
-        fetchMessages()
+        setShowAdminIntro(true)
+        
+        // Hide intro after 3 seconds and show admin content
+        setTimeout(() => {
+          setShowAdminIntro(false)
+          setShowAdminContent(true)
+          fetchMessages()
+        }, 3000)
       } else {
         setError("Invalid password")
       }
@@ -86,6 +95,26 @@ export default function AdminPanel() {
     }
   }
 
+  if (showAdminIntro) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center bg-black overflow-hidden">
+        <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-sans font-bold text-white mb-6 sm:mb-8 tracking-tight intro-title animate-fade-in-up px-4">
+          ASHWIN ASTHANA
+        </h1>
+        <p className="text-base sm:text-lg md:text-xl lg:text-2xl font-sans font-light text-white/80 text-center max-w-3xl px-6 sm:px-4 tracking-wide intro-quote animate-fade-in-up-delayed leading-relaxed">
+          Welcome to the admin panel.
+        </p>
+        <div className="flex justify-center items-center mt-8 animate-fade-in-up-delayed">
+          <div className="flex space-x-1">
+            <div className="w-2 h-2 bg-white/60 rounded-full animate-pulse" style={{animationDelay: '0s'}}></div>
+            <div className="w-2 h-2 bg-white/60 rounded-full animate-pulse" style={{animationDelay: '0.2s'}}></div>
+            <div className="w-2 h-2 bg-white/60 rounded-full animate-pulse" style={{animationDelay: '0.4s'}}></div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
   if (!isAuthenticated) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background animate-fade-in">
@@ -129,6 +158,10 @@ export default function AdminPanel() {
         </Card>
       </div>
     )
+  }
+
+  if (!showAdminContent) {
+    return null
   }
 
   return (
