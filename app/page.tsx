@@ -384,12 +384,32 @@ export default function UnsentProject() {
                   {error}
                 </div>
               )}
-              <Button
-                onClick={() => setShowSubmitForm(true)}
-                className="bg-foreground text-background hover:bg-foreground/90 hover:scale-105 px-6 sm:px-8 py-3 rounded-xl text-base font-medium tracking-wide transition-all duration-300 cursor-pointer"
-              >
-                Submit your unsaid
-              </Button>
+              <div className="flex flex-col sm:flex-row gap-4 items-center justify-center">
+                <Button
+                  onClick={() => setShowSubmitForm(true)}
+                  className="bg-foreground text-background hover:bg-foreground/90 hover:scale-105 px-6 sm:px-8 py-3 rounded-xl text-base font-medium tracking-wide transition-all duration-300 cursor-pointer"
+                >
+                  Submit your unsaid
+                </Button>
+                <Button
+                  onClick={() => {
+                    if (navigator.share) {
+                      navigator.share({
+                        title: 'The Unsaid - Share Your Unspoken Words',
+                        text: 'A beautiful platform for anonymous messages to loved ones. The loudest words are the ones we never speak.',
+                        url: 'https://the-unsaid.vercel.app'
+                      })
+                    } else {
+                      navigator.clipboard.writeText('https://the-unsaid.vercel.app')
+                      alert('Link copied to clipboard!')
+                    }
+                  }}
+                  variant="outline"
+                  className="border-foreground/20 text-foreground hover:bg-foreground/10 hover:scale-105 px-6 sm:px-8 py-3 rounded-xl text-base font-medium tracking-wide transition-all duration-300 cursor-pointer"
+                >
+                  📤 Share The Unsaid
+                </Button>
+              </div>
             </div>
 
             {isLoading ? (
