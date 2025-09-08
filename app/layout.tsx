@@ -15,6 +15,14 @@ export const metadata: Metadata = {
   title: "The Unsaid",
   description: "A space for thoughts that were never meant to be sent",
   generator: "v0.app",
+  icons: {
+    icon: "/favicon.ico",
+  },
+  openGraph: {
+    title: "The Unsaid",
+    description: "A space for thoughts that were never meant to be sent",
+    images: ["/og-image.png"],
+  },
 }
 
 export default function RootLayout({
