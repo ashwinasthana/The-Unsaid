@@ -372,7 +372,7 @@ export default function UnsentProject() {
         <div className="flex-1 p-4 sm:p-6 md:p-8">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-8 sm:mb-12 content-slide animate-fade-in-up px-4">
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-foreground tracking-tight mb-4 sm:mb-6">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-foreground tracking-tight mb-4 sm:mb-6 animate-pulse">
                 THE UNSAID
               </h1>
               <p className="text-sm sm:text-base md:text-lg text-muted-foreground font-light tracking-wide max-w-2xl mx-auto mb-6 sm:mb-8 leading-relaxed">
