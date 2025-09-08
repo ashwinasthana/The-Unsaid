@@ -49,6 +49,7 @@ export default function AdminPanel() {
       const response = await fetch("/api/admin/messages")
       if (response.ok) {
         const data = await response.json()
+        console.log("Admin messages fetched:", data.messages)
         setMessages(data.messages)
       }
     } catch (error) {
