@@ -56,11 +56,26 @@ export async function DELETE(
       return NextResponse.json({ error: "Message not found" }, { status: 404 })
     }
     
+    // Try delete with service role client to bypass RLS
     const { error, data } = await supabase
       .from("messages")
       .delete()
       .eq("id", id)
       .select()
+    
+    console.log("Delete attempt 1 result:", { error, data, rowCount: data?.length })
+    
+    // If that didn't work, try with a direct SQL query
+    if (!data || data.length === 0) {
+      const { error: sqlError, data: sqlData } = await supabase
+        .rpc('delete_message_by_id', { message_id: id })
+      
+      console.log("SQL delete result:", { sqlError, sqlData })
+      
+      if (sqlError) {
+        return NextResponse.json({ error: `SQL delete failed: ${sqlError.message}` }, { status: 500 })
+      }
+    }
 
     console.log("Delete result:", { error, data })
 
