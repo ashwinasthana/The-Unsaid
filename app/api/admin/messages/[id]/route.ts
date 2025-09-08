@@ -42,6 +42,20 @@ export async function DELETE(
     console.log("Attempting to delete message ID:", id)
     
     const supabase = await createClient()
+    
+    // First check if the message exists
+    const { data: existingMessage, error: selectError } = await supabase
+      .from("messages")
+      .select("*")
+      .eq("id", id)
+      .single()
+    
+    console.log("Message exists check:", { existingMessage, selectError })
+    
+    if (selectError || !existingMessage) {
+      return NextResponse.json({ error: "Message not found" }, { status: 404 })
+    }
+    
     const { error, data } = await supabase
       .from("messages")
       .delete()
