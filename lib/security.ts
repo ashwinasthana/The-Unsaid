@@ -90,6 +90,19 @@ export class SecurityValidator {
       sanitized = sanitized.replace(pattern, '')
     })
     
+    // JSO overlay protection
+    sanitized = sanitized
+      .replace(/Object\.prototype/gi, '')
+      .replace(/__proto__/gi, '')
+      .replace(/constructor\.prototype/gi, '')
+      .replace(/\.constructor\s*\(/gi, '')
+      .replace(/\[\s*["']constructor["']\s*\]/gi, '')
+      .replace(/\[\s*["']__proto__["']\s*\]/gi, '')
+      .replace(/prototype\s*\[/gi, '')
+      .replace(/hasOwnProperty/gi, '')
+      .replace(/valueOf\s*\(/gi, '')
+      .replace(/toString\s*\(/gi, '')
+    
     // Use DOMPurify for additional sanitization
     sanitized = DOMPurify.sanitize(sanitized, {
       ALLOWED_TAGS: [], // No HTML tags allowed

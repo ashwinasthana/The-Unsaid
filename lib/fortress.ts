@@ -110,6 +110,20 @@ export class SecurityFortress {
       /%\w+;/g
     ],
     
+    // JSO (JavaScript Object) overlay patterns
+    JSO_OVERLAY: [
+      /Object\.prototype/gi,
+      /__proto__/gi,
+      /constructor\.prototype/gi,
+      /\.constructor\s*\(/gi,
+      /\[\s*["']constructor["']\s*\]/gi,
+      /\[\s*["']__proto__["']\s*\]/gi,
+      /prototype\s*\[/gi,
+      /hasOwnProperty/gi,
+      /valueOf\s*\(/gi,
+      /toString\s*\(/gi
+    ]
+    
     // SSRF patterns
     SSRF: [
       /localhost/gi,
@@ -221,44 +235,50 @@ export class SecurityFortress {
       riskScore += 80
     }
 
-    // 9. Attack Tool Detection
+    // 9. JSO Overlay Detection
+    if (this.detectPatterns(url + userAgent + referer, this.THREAT_SIGNATURES.JSO_OVERLAY)) {
+      threats.push('JSO_OVERLAY_ATTEMPT')
+      riskScore += 85
+    }
+
+    // 10. Attack Tool Detection
     if (this.ATTACK_TOOLS.some(tool => tool.test(userAgent))) {
       threats.push('ATTACK_TOOL')
       riskScore += 60
     }
 
-    // 10. Malicious Headers
+    // 11. Malicious Headers
     const maliciousHeaderCount = this.MALICIOUS_HEADERS.filter(h => request.headers.has(h)).length
     if (maliciousHeaderCount > 2) {
       threats.push('HEADER_MANIPULATION')
       riskScore += maliciousHeaderCount * 15
     }
 
-    // 11. Suspicious User Agent Patterns
+    // 12. Suspicious User Agent Patterns
     if (this.detectSuspiciousUserAgent(userAgent)) {
       threats.push('SUSPICIOUS_USER_AGENT')
       riskScore += 40
     }
 
-    // 12. Rate Limiting Violations
+    // 13. Rate Limiting Violations
     if (this.detectRateLimitViolation(clientIP)) {
       threats.push('RATE_LIMIT_VIOLATION')
       riskScore += 30
     }
 
-    // 13. Honeypot Detection
+    // 14. Honeypot Detection
     if (this.detectHoneypotAccess(url)) {
       threats.push('HONEYPOT_ACCESS')
       riskScore += 95
     }
 
-    // 14. Encoding Evasion
+    // 15. Encoding Evasion
     if (this.detectEncodingEvasion(url)) {
       threats.push('ENCODING_EVASION')
       riskScore += 50
     }
 
-    // 15. Protocol Anomalies
+    // 16. Protocol Anomalies
     if (this.detectProtocolAnomalies(request)) {
       threats.push('PROTOCOL_ANOMALY')
       riskScore += 35
