@@ -22,20 +22,7 @@ interface DatabaseMessage {
   created_at: string
 }
 
-const sanitizeInput = (input: string): string => {
-  return input
-    .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, "") // Remove script tags
-    .replace(/javascript:/gi, "") // Remove javascript: protocol
-    .replace(/on\w+\s*=/gi, "") // Remove event handlers
-    .trim()
-}
-
-const validateInput = (input: string, maxLength = 1000): boolean => {
-  if (!input || input.length === 0) return false
-  if (input.length > maxLength) return false
-  if (input.includes("<script>") || input.includes("javascript:")) return false
-  return true
-}
+import { SecurityValidator } from "@/lib/security"
 
 const rateLimiter = {
   submissions: new Map<string, number[]>(),
@@ -211,12 +198,13 @@ export default function UnsentProject() {
     setError("")
     setIsLoading(true)
 
-    const sanitizedQuery = sanitizeInput(searchQuery)
-    if (!validateInput(sanitizedQuery, 50)) {
-      setError("Please enter a valid name (max 50 characters)")
+    const nameValidation = SecurityValidator.validateRecipientName(searchQuery)
+    if (!nameValidation.isValid) {
+      setError(nameValidation.error || "Please enter a valid name")
       setIsLoading(false)
       return
     }
+    const sanitizedQuery = SecurityValidator.sanitizeInput(searchQuery)
 
     try {
       const response = await fetch(`/api/messages?name=${encodeURIComponent(sanitizedQuery)}`)
@@ -253,19 +241,22 @@ export default function UnsentProject() {
     e.preventDefault()
     setError("")
 
-    // Validate and sanitize inputs
-    const sanitizedMessage = sanitizeInput(newMessage)
-    const sanitizedRecipient = sanitizeInput(recipientName)
-
-    if (!validateInput(sanitizedMessage, 2000)) {
-      setError("Message must be between 1-2000 characters and contain no harmful content")
+    // Comprehensive security validation
+    const nameValidation = SecurityValidator.validateRecipientName(recipientName)
+    if (!nameValidation.isValid) {
+      setError(nameValidation.error || "Invalid recipient name")
       return
     }
 
-    if (!validateInput(sanitizedRecipient, 50)) {
-      setError("Recipient name must be between 1-50 characters and contain no harmful content")
+    const messageValidation = SecurityValidator.validateMessage(newMessage)
+    if (!messageValidation.isValid) {
+      setError(messageValidation.error || "Invalid message content")
       return
     }
+
+    // Sanitize inputs after validation
+    const sanitizedMessage = SecurityValidator.sanitizeInput(newMessage)
+    const sanitizedRecipient = SecurityValidator.sanitizeInput(recipientName)
 
     // Check rate limiting
     if (!rateLimiter.isAllowed()) {
