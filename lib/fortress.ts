@@ -151,14 +151,15 @@ export class SecurityFortress {
     riskScore: number
     shouldBlock: boolean
   } {
-    const threats: string[] = []
-    let riskScore = 0
-    const clientIP = this.getClientIP(request)
+    try {
+      const threats: string[] = []
+      let riskScore = 0
+      const clientIP = this.getClientIP(request)
 
-    // Check if IP is already blocked
-    if (this.blockedIPs.has(clientIP)) {
-      return { isValid: false, threats: ['BLOCKED_IP'], riskScore: 100, shouldBlock: true }
-    }
+      // Check if IP is already blocked
+      if (this.blockedIPs.has(clientIP)) {
+        return { isValid: false, threats: ['BLOCKED_IP'], riskScore: 100, shouldBlock: true }
+      }
 
     // Analyze all request components
     const url = request.url
@@ -268,11 +269,15 @@ export class SecurityFortress {
       console.error(`🚨 SECURITY ALERT: IP ${clientIP} blocked - Risk: ${riskScore}, Threats: ${threats.join(', ')}`)
     }
 
-    return {
-      isValid: riskScore < 50,
-      threats,
-      riskScore,
-      shouldBlock
+      return {
+        isValid: riskScore < 50,
+        threats,
+        riskScore,
+        shouldBlock
+      }
+    } catch (error) {
+      console.error('Fortress validation error:', error)
+      return { isValid: true, threats: [], riskScore: 0, shouldBlock: false }
     }
   }
 

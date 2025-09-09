@@ -1,31 +1,20 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { SecurityFortress } from './lib/fortress'
 
 export function middleware(request: NextRequest) {
-  // Apply fortress security to all requests
-  const securityCheck = SecurityFortress.validateRequest(request)
-  
-  if (!securityCheck.isValid || securityCheck.shouldBlock) {
-    console.error(`🚨 BLOCKED REQUEST: ${request.url} - Threats: ${securityCheck.threats.join(', ')} - Risk: ${securityCheck.riskScore}`)
+  try {
+    // Basic security headers only
+    const response = NextResponse.next()
     
-    return new NextResponse('Access Denied', {
-      status: 403,
-      headers: {
-        'Content-Type': 'text/plain',
-        ...SecurityFortress.createFortressHeaders()
-      }
-    })
+    response.headers.set('X-Content-Type-Options', 'nosniff')
+    response.headers.set('X-Frame-Options', 'DENY')
+    response.headers.set('X-XSS-Protection', '1; mode=block')
+    response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin')
+    
+    return response
+  } catch (error) {
+    console.error('Middleware error:', error)
+    return NextResponse.next()
   }
-
-  // Add security headers to all responses
-  const response = NextResponse.next()
-  const securityHeaders = SecurityFortress.createFortressHeaders()
-  
-  Object.entries(securityHeaders).forEach(([key, value]) => {
-    response.headers.set(key, value)
-  })
-
-  return response
 }
 
 export const config = {
