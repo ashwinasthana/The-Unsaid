@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server"
 import { cookies } from "next/headers"
 import { sign } from "jsonwebtoken"
 import crypto from "crypto"
+import { AntiTamper } from "@/lib/anti-tamper"
 
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "admin123"
 const JWT_SECRET = process.env.JWT_SECRET || crypto.randomBytes(64).toString('hex')
@@ -57,6 +58,13 @@ export async function POST(request: NextRequest) {
   try {
     const clientIP = getClientIP(request)
     
+    // Anti-tampering validation
+    const tamperCheck = AntiTamper.validateRequest(request)
+    if (!tamperCheck.isValid) {
+      console.warn(`Tamper attempt from ${clientIP}: ${tamperCheck.reason} (Risk: ${tamperCheck.riskScore})`)
+      return NextResponse.json({ error: "Request validation failed" }, { status: 403 })
+    }
+    
     if (isRateLimited(clientIP)) {
       return NextResponse.json({ error: "Too many login attempts. Access blocked for 1 hour." }, { status: 429 })
     }
@@ -101,7 +109,15 @@ export async function POST(request: NextRequest) {
     // Reset rate limit on successful login
     loginAttempts.delete(clientIP)
 
-    return NextResponse.json({ success: true })
+    const response = NextResponse.json({ success: true })
+    
+    // Add security headers
+    const securityHeaders = AntiTamper.createSecurityHeaders()
+    Object.entries(securityHeaders).forEach(([key, value]) => {
+      response.headers.set(key, value)
+    })
+    
+    return response
   } catch (error) {
     return NextResponse.json({ error: "Authentication failed" }, { status: 500 })
   }

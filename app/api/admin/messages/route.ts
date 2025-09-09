@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from "next/server"
 import { cookies } from "next/headers"
 import { verify } from "jsonwebtoken"
 import crypto from "crypto"
+import { AntiTamper } from "@/lib/anti-tamper"
 
 const JWT_SECRET = process.env.JWT_SECRET || crypto.randomBytes(64).toString('hex')
 
@@ -31,6 +32,14 @@ async function isAuthenticated(request?: NextRequest): Promise<boolean> {
 
 export async function GET(request: NextRequest) {
   try {
+    // Anti-tampering validation
+    const tamperCheck = AntiTamper.validateRequest(request)
+    if (!tamperCheck.isValid) {
+      const clientIP = request.headers.get('x-forwarded-for')?.split(',')[0] || 'unknown'
+      console.warn(`Admin tamper attempt from ${clientIP}: ${tamperCheck.reason}`)
+      return NextResponse.json({ error: "Request validation failed" }, { status: 403 })
+    }
+    
     if (!(await isAuthenticated(request))) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
