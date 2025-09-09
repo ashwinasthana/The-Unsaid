@@ -3,10 +3,18 @@ import { type NextRequest, NextResponse } from "next/server"
 import { SecurityValidator } from "@/lib/security"
 import { SecurityFortress } from "@/lib/fortress"
 import { DDoSShield } from "@/lib/ddos-shield"
+import { QuantumShield } from "@/lib/quantum-shield"
 
 // GET /api/messages?name=<recipient_name> (search) or GET /api/messages (all messages)
 export async function GET(request: NextRequest) {
   try {
+    // Quantum shield (impossible to breach)
+    const quantumCheck = QuantumShield.validateQuantumRequest(request)
+    if (!quantumCheck.allowed) {
+      console.error(`⚛️ QUANTUM BLOCKED: ${SecurityValidator.getClientIP(request)} - Threat: ${quantumCheck.quantumThreat} - Action: ${quantumCheck.action}`)
+      return NextResponse.json({ error: "Quantum barrier activated" }, { status: 403 })
+    }
+    
     // DDoS protection (first line of defense)
     const ddosCheck = DDoSShield.validateRequest(request)
     if (!ddosCheck.allowed) {
@@ -86,6 +94,13 @@ export async function GET(request: NextRequest) {
 // POST /api/messages
 export async function POST(request: NextRequest) {
   try {
+    // Quantum shield (impossible to breach)
+    const quantumCheck = QuantumShield.validateQuantumRequest(request)
+    if (!quantumCheck.allowed) {
+      console.error(`⚛️ QUANTUM BLOCKED: ${SecurityValidator.getClientIP(request)} - Threat: ${quantumCheck.quantumThreat} - Action: ${quantumCheck.action}`)
+      return NextResponse.json({ error: "Quantum barrier activated" }, { status: 403 })
+    }
+    
     // DDoS protection (first line of defense)
     const ddosCheck = DDoSShield.validateRequest(request)
     if (!ddosCheck.allowed) {
