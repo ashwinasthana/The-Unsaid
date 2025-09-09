@@ -4,6 +4,7 @@ import { cookies } from "next/headers"
 import { verify } from "jsonwebtoken"
 import crypto from "crypto"
 import { AntiTamper } from "@/lib/anti-tamper"
+import { SecurityFortress } from "@/lib/fortress"
 
 const JWT_SECRET = process.env.JWT_SECRET || crypto.randomBytes(64).toString('hex')
 
@@ -35,6 +36,14 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    // Fortress security validation
+    const fortressCheck = SecurityFortress.validateRequest(request)
+    if (!fortressCheck.isValid || fortressCheck.shouldBlock) {
+      const clientIP = request.headers.get('x-forwarded-for')?.split(',')[0] || 'unknown'
+      console.error(`🚨 ADMIN DELETE FORTRESS BLOCKED: ${clientIP} - Threats: ${fortressCheck.threats.join(', ')}`)
+      return NextResponse.json({ error: "Security validation failed" }, { status: 403 })
+    }
+    
     // Anti-tampering validation
     const tamperCheck = AntiTamper.validateRequest(request)
     if (!tamperCheck.isValid) {

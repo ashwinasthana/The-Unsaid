@@ -1,10 +1,19 @@
 import { createClient } from "@/lib/supabase/server"
 import { type NextRequest, NextResponse } from "next/server"
 import { SecurityValidator } from "@/lib/security"
+import { SecurityFortress } from "@/lib/fortress"
 
 // GET /api/messages?name=<recipient_name> (search) or GET /api/messages (all messages)
 export async function GET(request: NextRequest) {
   try {
+    // Fortress security validation
+    const fortressCheck = SecurityFortress.validateRequest(request)
+    if (!fortressCheck.isValid || fortressCheck.shouldBlock) {
+      const clientIP = SecurityValidator.getClientIP(request)
+      console.error(`🚨 API FORTRESS BLOCKED: ${clientIP} - Threats: ${fortressCheck.threats.join(', ')}`)
+      return NextResponse.json({ error: "Security validation failed" }, { status: 403 })
+    }
+    
     // Rate limiting for search requests
     const clientIP = SecurityValidator.getClientIP(request)
     const rateLimit = SecurityValidator.checkRateLimit(`search_${clientIP}`, 30, 300000) // 30 requests per 5 minutes
@@ -69,6 +78,14 @@ export async function GET(request: NextRequest) {
 // POST /api/messages
 export async function POST(request: NextRequest) {
   try {
+    // Fortress security validation
+    const fortressCheck = SecurityFortress.validateRequest(request)
+    if (!fortressCheck.isValid || fortressCheck.shouldBlock) {
+      const clientIP = SecurityValidator.getClientIP(request)
+      console.error(`🚨 SUBMIT FORTRESS BLOCKED: ${clientIP} - Threats: ${fortressCheck.threats.join(', ')}`)
+      return NextResponse.json({ error: "Security validation failed" }, { status: 403 })
+    }
+    
     // Enhanced rate limiting for submissions
     const clientIP = SecurityValidator.getClientIP(request)
     const rateLimit = SecurityValidator.checkRateLimit(`submit_${clientIP}`, 3, 3600000) // 3 submissions per hour

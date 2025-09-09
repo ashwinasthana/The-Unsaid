@@ -3,9 +3,14 @@ import { cookies } from "next/headers"
 import { sign } from "jsonwebtoken"
 import crypto from "crypto"
 import { AntiTamper } from "@/lib/anti-tamper"
+import { SecurityFortress } from "@/lib/fortress"
 
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "admin123"
 const JWT_SECRET = process.env.JWT_SECRET || crypto.randomBytes(64).toString('hex')
+
+// Store password hash for secure comparison
+const ADMIN_PASSWORD_HASH = SecurityFortress.hashPassword(ADMIN_PASSWORD)
+const ADMIN_SALT = ADMIN_PASSWORD_HASH.salt
 
 // Enhanced security tracking
 const loginAttempts = new Map<string, { count: number; lastAttempt: number; blocked: boolean }>()
@@ -58,6 +63,13 @@ export async function POST(request: NextRequest) {
   try {
     const clientIP = getClientIP(request)
     
+    // Fortress-level security validation
+    const fortressCheck = SecurityFortress.validateRequest(request)
+    if (!fortressCheck.isValid || fortressCheck.shouldBlock) {
+      console.error(`🚨 FORTRESS BLOCKED: ${clientIP} - Threats: ${fortressCheck.threats.join(', ')} - Risk: ${fortressCheck.riskScore}`)
+      return NextResponse.json({ error: "Security validation failed" }, { status: 403 })
+    }
+    
     // Anti-tampering validation
     const tamperCheck = AntiTamper.validateRequest(request)
     if (!tamperCheck.isValid) {
@@ -71,7 +83,8 @@ export async function POST(request: NextRequest) {
 
     const { password } = await request.json()
 
-    if (password !== ADMIN_PASSWORD) {
+    // Secure password verification using timing-safe comparison
+    if (!SecurityFortress.verifyPassword(password, ADMIN_PASSWORD_HASH.hash, ADMIN_SALT)) {
       return NextResponse.json({ error: "Invalid password" }, { status: 401 })
     }
 
@@ -111,8 +124,8 @@ export async function POST(request: NextRequest) {
 
     const response = NextResponse.json({ success: true })
     
-    // Add security headers
-    const securityHeaders = AntiTamper.createSecurityHeaders()
+    // Add fortress security headers
+    const securityHeaders = SecurityFortress.createFortressHeaders()
     Object.entries(securityHeaders).forEach(([key, value]) => {
       response.headers.set(key, value)
     })
