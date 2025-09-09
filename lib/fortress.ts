@@ -122,7 +122,7 @@ export class SecurityFortress {
       /hasOwnProperty/gi,
       /valueOf\s*\(/gi,
       /toString\s*\(/gi
-    ]
+    ],
     
     // SSRF patterns
     SSRF: [
