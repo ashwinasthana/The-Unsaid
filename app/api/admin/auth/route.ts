@@ -4,6 +4,7 @@ import { sign } from "jsonwebtoken"
 import crypto from "crypto"
 import { AntiTamper } from "@/lib/anti-tamper"
 import { SecurityFortress } from "@/lib/fortress"
+import { DDoSShield } from "@/lib/ddos-shield"
 
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "admin123"
 const JWT_SECRET = process.env.JWT_SECRET || crypto.randomBytes(64).toString('hex')
@@ -62,6 +63,13 @@ function invalidateAllSessions() {
 export async function POST(request: NextRequest) {
   try {
     const clientIP = getClientIP(request)
+    
+    // DDoS protection for admin endpoints
+    const ddosCheck = DDoSShield.validateRequest(request)
+    if (!ddosCheck.allowed) {
+      console.error(`🚫 ADMIN DDoS BLOCKED: ${clientIP} - ${ddosCheck.reason}`)
+      return NextResponse.json({ error: "Access temporarily restricted" }, { status: 429 })
+    }
     
     // Fortress-level security validation
     const fortressCheck = SecurityFortress.validateRequest(request)

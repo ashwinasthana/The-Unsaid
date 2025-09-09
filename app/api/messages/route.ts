@@ -2,10 +2,18 @@ import { createClient } from "@/lib/supabase/server"
 import { type NextRequest, NextResponse } from "next/server"
 import { SecurityValidator } from "@/lib/security"
 import { SecurityFortress } from "@/lib/fortress"
+import { DDoSShield } from "@/lib/ddos-shield"
 
 // GET /api/messages?name=<recipient_name> (search) or GET /api/messages (all messages)
 export async function GET(request: NextRequest) {
   try {
+    // DDoS protection (first line of defense)
+    const ddosCheck = DDoSShield.validateRequest(request)
+    if (!ddosCheck.allowed) {
+      console.warn(`🚫 DDoS BLOCKED: ${SecurityValidator.getClientIP(request)} - ${ddosCheck.reason}`)
+      return NextResponse.json({ error: "Rate limit exceeded" }, { status: 429 })
+    }
+    
     // Fortress security validation
     const fortressCheck = SecurityFortress.validateRequest(request)
     if (!fortressCheck.isValid || fortressCheck.shouldBlock) {
@@ -78,6 +86,13 @@ export async function GET(request: NextRequest) {
 // POST /api/messages
 export async function POST(request: NextRequest) {
   try {
+    // DDoS protection (first line of defense)
+    const ddosCheck = DDoSShield.validateRequest(request)
+    if (!ddosCheck.allowed) {
+      console.warn(`🚫 DDoS BLOCKED: ${SecurityValidator.getClientIP(request)} - ${ddosCheck.reason}`)
+      return NextResponse.json({ error: "Rate limit exceeded" }, { status: 429 })
+    }
+    
     // Fortress security validation
     const fortressCheck = SecurityFortress.validateRequest(request)
     if (!fortressCheck.isValid || fortressCheck.shouldBlock) {
