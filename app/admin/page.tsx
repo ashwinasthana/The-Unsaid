@@ -186,10 +186,14 @@ export default function AdminPanel() {
                 ● Online
               </div>
               <Button 
-                onClick={() => {
+                onClick={async () => {
+                  try {
+                    await fetch("/api/admin/auth", { method: "DELETE" })
+                  } catch {}
                   setIsAuthenticated(false)
                   setLoginTime(null)
                   setShowAdminContent(false)
+                  window.location.reload()
                 }} 
                 variant="outline"
                 size="sm"
