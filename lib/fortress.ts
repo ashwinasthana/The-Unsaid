@@ -67,7 +67,9 @@ export class SecurityFortress {
       /%252e%252e/gi,
       /\.\.\\/g,
       /\.\.%c0%af/gi,
-      /\.\.%c1%9c/gi
+      /\.\.%c1%9c/gi,
+      /%252f/gi,
+      /\.\.%252f/gi
     ],
     
     // LDAP injection
@@ -121,7 +123,9 @@ export class SecurityFortress {
       /gopher:\/\//gi,
       /dict:\/\//gi,
       /ftp:\/\//gi,
-      /sftp:\/\//gi
+      /sftp:\/\//gi,
+      /\/admin/gi,
+      /\/config/gi
     ]
   }
 
